@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout
 class ShopItemFragment(
 ) : Fragment() {
     private lateinit var viewModel: ShopItemViewModel
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     private lateinit var tilName: TextInputLayout
     private lateinit var tilCount: TextInputLayout
@@ -28,6 +29,14 @@ class ShopItemFragment(
     private var screenMode: String = MODE_UNKNOWN
     private var shopItemId: Int = ShopItem.UNDEFINED_ID
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is OnEditingFinishedListener){
+            onEditingFinishedListener = context
+        }else{
+            throw RuntimeException("Activity must implement listener")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,7 +86,7 @@ class ShopItemFragment(
             tilName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
     }
 
@@ -142,7 +151,9 @@ class ShopItemFragment(
         etCount = view.findViewById(R.id.et_count)
         buttonSave = view.findViewById(R.id.btn_submit)
     }
-
+    interface OnEditingFinishedListener{
+        fun onEditingFinished()
+    }
     companion object {
         private const val SCREEN_MODE = "extra_mode"
         private const val SHOP_ITEM_ID = "extra_shop_item_id"
