@@ -74,3 +74,4 @@ class MainActivity : AppCompatActivity() {
             Log.d("ShopAdapter", "${it.toString()}")
         }
     }
+}
