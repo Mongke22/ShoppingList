@@ -17,7 +17,7 @@
         tools:listitem="@layout/item_shop_enabled"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_shop_item"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -29,5 +29,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
